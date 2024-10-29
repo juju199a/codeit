@@ -16,6 +16,7 @@
 def square(a):
     return a*a
 ```
+
     - git add .
     - git commit -m "Add squre function"
     - git push
