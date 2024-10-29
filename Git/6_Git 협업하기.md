@@ -1,6 +1,6 @@
 # 6. Git 협업하기
 ## 04. 이 코드는 누가 작성했을까?
-1. **git blame**
+1. `git blame`
     - blame: 비난하다, ~을 탓하다
     - 어떤 파일의 특정 코드를 누가 작성했는지 찾아내기 위한 커맨드
     - git blame calculator.py
@@ -16,13 +16,12 @@
 def square(a):
     return a*a
 ```
-
     - git add .
     - git commit -m "Add squre function"
     - git push
 
 2. 최신 커밋을 되돌린다.
-    - **git revert (작업을 되돌리고 싶은 커밋의 아이디)**
+    - `git revert (작업을 되돌리고 싶은 커밋의 아이디)`
         - 되돌리다. 복귀하다
     - git revert f658
     - 커밋 메시지를 입력하라는 메시지
@@ -39,7 +38,7 @@ def square(a):
 ## 06. 여러 커밋 취소하기
 1. 여러 커밋 취소
     - git history
-    - git revert (어느 커밋부터 어느 커밋까지)
+    - `git revert` (어느 커밋부터 어느 커밋까지)
     - git revert facd..eea5
         - facd 커밋은 포함되지 않는다.
         - 커밋 
