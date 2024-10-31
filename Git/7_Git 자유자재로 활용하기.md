@@ -1,11 +1,11 @@
 # 7. Git 자유자재로 활용하기
 ## 01. git reset을 하고 나서 돌아오려면?
 1. `git reset --hard abad`
-    - 워킹 디렉토리에 있는 것 모두 초기화
-    - cat calculator.py
-    - git history
-    - `이때까지 한 커밋들은 사라진 걸까?`
-        - No. reset을 해도 그 이후의 커밋들이 삭제되는 건 아닙니다!
+ - 워킹 디렉토리에 있는 것 모두 초기화
+ - cat calculator.py
+ - git history
+ - `이때까지 한 커밋들은 사라진 걸까?`
+ - No. reset을 해도 그 이후의 커밋들이 삭제되는 건 아닙니다!
 
 2. `git reset --hard 9856`
     - git history
@@ -72,3 +72,16 @@ conflict 수정
     - git history --all --graph
 
 2. `git
+
+
+- 첫 번째 항목
+    - 하위 항목
+
+1. 첫 번째 항목
+  - 첫 번째 하위 항목 (두 칸 들여쓰기)
+  - 두 번째 하위 항목
+
+1. 첫 번째 항목
+    - 첫 번째 하위 항목 (네 칸 들여쓰기)
+    - 두 번째 하위 항목
+
