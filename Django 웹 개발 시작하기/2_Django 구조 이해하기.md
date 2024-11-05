@@ -119,12 +119,249 @@
 4. `django-admin startproject codeit`
   - django 프로젝트 새로 만들려고 할 때 명령어
   
+## 08. Django 앱(App)
+1. Django 앱(app)
+  - 저번레슨 -> django 프로젝트(Project) 생성
+  - 이번레슨 -> django 앱(App) 생성
 
+2. 앱생성
+  - `cd costaurant`
+  - `python manage.py startapp foods`
+  - ls
 
+3. `__init__.py`
+  - 각 장고 앱은 하나의 파이썬 패키지인데, 파이썬 패키지로 인식하기 위해 필요한 파일입니다.
 
+4. `admin.py`
+  - 이 foods 앱을 django 관리자와 연동하기 위해 필요한 설정 파일
 
+5. `apps.py`
+  - 앱에 대한 설정을 넣어 두는 파일이구요.
 
+6. `models.py`
+  - 이 앱에서 사용할 데이터 모델, 데이터 베이스 연동과 관련된 파일
 
+7. `views.py`
+  - 서버에 어떠한 요청이 들어 왔을 때, 어떻게 처리해야 할지에 대한 로직이 들어가는 파일
 
+8. **models.py와 views.py**
+  - django에서 가장 핵심이 되는 요소이기 때문에, 뒤에서 깊게 공부함
 
+9. `test.py`
+  - 프로젝트의 테스트 코드를 작성하기 위한 곳
+  - 우리가 만든 웹사이트에 오류가 있는지 검사하기 위해 테스트 코드를 작성해 두는 곳입니다.
 
+10. `migrations`
+  - 데이터베이스와 연관된 것
+  - 데이터베이스 구조가 계속 바뀐다.
+  - 변경 사항이 생길 때 마다 히스토리가 누적이 됩니다.
+
+11. `필수`
+  - 새로운 앱을 만들었다면 장고에게 새로운 앱을 만들었다는 사실을 알려 줘야 함!
+  - `costaurant/settings.py`
+  - costaurant는 프로젝트 앱
+  - 프로젝트 앱 안에 있는 setting.py
+```
+INSTALLED_APPS = [
+  ...
+  'foods'
+]
+```
+
+## 09. Django 앱(App) 구조
+1. Project와 App의 차이
+
+2. App 생성하기
+  - `python manage.py startapp foods`
+
+3. Django App 구조
+  - `admin.py`: 관리자 기능
+  - `apps.py`: 각각의 App마다 추가적인 기능 및 설정
+  - `migrations 디렉토리`: Djang 앱의 데이터 구조에 대한 변경 사항인 migration 파일이 저장되는 디렉토리
+  - `models.py` : 데이터 구조를 정의. 데이터베이스와의 소통을 담당
+  - `tests.py`: 테스트 코드
+  - `views.py` : 앱에서 어떤 기능을 할지에 대한 메인 로직을 담당하는 파일
+
+## 10. 코스토랑 프로젝트 #01 프로젝트 생성
+1. 프로젝트 생성하기
+  - django-admin startproject costaurant
+
+2. 앱 생성하기
+  - python manage.py startapp menus
+
+3. 앱 등록하기
+  - settings.py
+```
+'menus',
+```
+```
+ALLOWED_HOSTS = ['*']
+```
+
+4. 서버 실행하기
+  - python manage.py runserver
+  - python manage.py runserver 0.0.0.0:8000
+
+5. 셀프 채점
+  - costaurant 프로젝트가 잘 생성되었나요?
+  - costaurant 프로젝트 안에 menu앱이 생성되었나요?
+  - 개발 서버를 실행하고 접속하면 Django 기본 페이지가 잘 나오나요?
+
+## 11. Django 앱의 철학 'Reusable App'
+1. 재사용성이 있는 App
+  - App은 하나의 기능 단위이며, 
+  - 하나의 프로젝트는 여러개의 App을 만들 수 있다.
+  - Reusable한 App을 만드는 방법
+
+2. Django 컨퍼런스
+  - 한 가지 앱은 한 가지 기능을 하고, 그 기능을 잘 수행해야 한다.
+  - 장고 개발자는 프로젝트를 많은 앱으로 구성한다는 것을 두려워하면 안된다.
+  - 각각의 앱을 유연하게 작성해야 한다.
+  - 다른 사람에게 배포가 가능하도록 만들어야 한다.
+  - 우리는 앱을 나누지 않고, 앱 하나로만 쭉 연습을 할 것입니다.
+
+## 12. Django 앱 구조 익히기
+1. `python manage.py startapp coffee`
+
+2. `틀린 것은?`
+  - Django 프로젝트는 재사용성을 고려한 기능 단위이다.
+  - 재사용성을 고려한 기능 단위는 앱(App)이며 하나의 프로젝는여러개의 앱으로 구성
+
+3. `reusable`
+  - reusable App: Django App이 추구해야 하는 방향성으로 재사용성을 지향해야 한다.
+
+4. `admin`
+  - 앱을 생성하면 admin.py가 자동으로 생성되며 관리자 기능을 사용하기 위한 여러가지 설정을 할 수 있습니다.
+
+5. `models.py 옳은 것은?`
+  - 데이터베이스 구조를 정의하고 데이터베이스와 소통하는데 필요한 파일
+
+6. `view.py`
+  - view.py는 앱(App)의 로직을 담당하는 파일입니다.
+  - URL의 분기를 담당하는 것은 **urls.py**입니다.
+  - 데이터베이스 구조를 담당하는 것은 **models.py**입니다.
+  - 프로젝트와 앱의 연결은 **settings.py**에서 할 수 있습니다.
+
+  
+## 13. Hello, Django!
+1. urls.py
+  - USER가 URL을 입력하면, dj는 urls.py에 적혀있는 파일을 보고, 어떤 처리를 할지 결정합니다.
+  - urlpatterns 라는 항목에서 URL을 어떻게 처리할 지 써 놓는 곳
+  - admin 이라고 있으면, admin.site.urls 로 가라
+  - codeit.kr/admin
+  - `python manage.py runserver` 로 개발 서버를 켜 준다.
+
+2. 새로운 URL처리
+```py
+path('foods/', include('foods.urls'))
+```
+  - foods 앱 안의 urls.py 파일을 살펴 봐라.
+  - foods 앱 안에 urls.py 파일이 없다.
+  - 그대로 복사해서, 
+```py
+urlpatterns = [
+  path('index/', views.index)
+]
+```
+  - foods 앱 안의 views 파일을 살펴 봐라.
+  - `views 모듈`을 쓰기 위해서는 불러와야 한다.
+  - `from . import views`
+  - . 은 같은 디렉토리를 의미합니다.
+  - `views 모듈`에서 `index 함수` 가져와라
+  - 실제로 views 모듈을 보면, index 함수를 정의해 준적이 없다.
+  - 우리가 만들어줘야 한다.
+```py
+from django.http import HttpResponse
+
+def index(request):
+  return HttpResponse("<h2>Hello, Django!</h2>")
+```
+  - python manage.py runserver
+  - http://127.0.0.1:8000/admin
+
+## 14. 클라이언트와 서버란?
+1. URL
+  - 클라이언트 -> 서버
+  - bakey.codeit.kr : 도메인 (Domain)
+  - /foods/index : 경로 (Path)
+
+## 15. URL은 어떻게 연결될까?
+1. dj가 가장 먼저 보는 파일은 `프로젝트 앱` 안에 있는 `urls.py`입니다.
+  - 왜 그런지는 settings.py를 보면 알 수가 있다.
+  - `ROOT_URLCOF = 'costaurant.urls`
+  - 장고가 URL을 보고 가장 먼저 어떤 파일을 봐야 할지 설정하는 부분
+  - `cosaurant 프로젝트 앱 안`에 있는 urls 를 보라고 명시되어 있습니다.
+
+2. domain/foods/index
+  - path('foods/', include('foods.urls'))
+  - foods까지만 매칭이 되고, 뒤의 index는 그대로 남아 있다.
+  - 뒷부분에 대해서 처리를 해 주기 위해서, 그 다음의 `foods 앱 안에 있는 urls 파일`을 봐라
+
+3. foods/index
+  - path('index/', views.index)
+  - 매칭이 되면, views 모듈의 index를 가리키고 있다.
+
+4. view.py
+  - index 함수
+  - 응답을 리턴한다.
+  - F11 (Chrome) / F12 (Edge)
+
+## 16. Django와 URL
+1. Client와 Server의 틀린 설명
+  - Django는 클라이언트-서버 구조에서 서버에 속합니다.
+  - 서버는 웹페이지 뿐만 아니라 이미지나 동영상 등 여러가지 형태의 자원(Resource)를 클라이언트에게 제공할 수 있습니다.
+
+2. url, domain
+  - URL(Uniform Resource Locator)는 네트워크 상의 자원(Resource)의 위치를 나타내는 문자열 입니다.
+  - Domain은 서버를 의미합니다.
+
+3. `urls.py`
+  - urls.py는 클라이언트의 요청인 URL을 보고 알맞은 로직을 제공 하기 위해 계층적으로 구성됩니다.
+  - 모든 URL에 대해 분기가 끝나면 알맞은 view를 호출하여 로직을 처리합니다.
+
+## 17. URL 연결하기
+1. 변경해야 하는 파일
+  - django_proj/django_proj/urls.py
+  - django_proj/greetings/urls.py
+
+2. 프로젝트 앱(django_proj)의 urls.py
+```py
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+  path('admin/', admin.site.urls),
+  path('greetins/', include('greetings.urls'))
+]
+```
+  - [A:greetings/] : /(경로 구분 기호)를 기준으로 URL의 앞부분인 'greeings/'와 매칭되면
+  - [B:greetings.urls] : 나머지 뒤쪽 URL(hello)은 다른 URLConf 모듈인 greetings 앱의 urls에서 처리하도록 넘겨 줍니다.
+3. greetings 앱의 urls.py
+```py
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+  path('hello/', views.helloView)
+]
+```
+  - [C:hello/]: 남아 있는 URL인 hello와 매칭되면
+  - [D:views.helloView]: URL 매칭이 모두 끝났으므로 다른 urls로 연결하는 것이 아닌 view를 호출 하면 되는데, 
+  - 이때 greeings 앱의 views를 보면 helloView가 정의되어 있으므로 helloView를 호출합니다.
+
+## 18. URL 작성이 헷깔려요!
+1. urls.py에 적는 URL 패턴은 슬래시(/)를 붙여서 작성합니다.
+
+2. 다른 URL로 이동하기 위한 URL을 적을 때 앞에 슬래시(/)가 있으면 도메인으로 부터의 경로를 의미합니다.
+  - <a href="/banana/">이동하기</a>
+  - codeit.kr/food/banana/ 가 아닌 `code.kr/banana/`로 이동하게 됩니다.
+
+3. 다른 URL로 이동하기 위한 URL을 적을 때 앞에 슬패시(/)가 없으면 현재 URL 뒤에 이동하는 URL이 연결된 경로가 됩니다.
+  - <a href="banana/">이동하기</a>
+  - codeit.kr/food/banana 로 이동하게 됩니다.
+
+## 19. Hola!
+1. /greeings/hello/
+  - path('greetings/', include('greetings.urls)),
+  - path('hello/', views.hello_view),
