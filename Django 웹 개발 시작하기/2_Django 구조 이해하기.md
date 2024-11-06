@@ -187,12 +187,12 @@ INSTALLED_APPS = [
   - django-admin startproject costaurant
 
 2. 앱 생성하기
-  - python manage.py startapp menus
+  - python manage.py startapp menu
 
 3. 앱 등록하기
   - settings.py
 ```
-'menus',
+'menu',
 ```
 ```
 ALLOWED_HOSTS = ['*']
@@ -365,3 +365,130 @@ urlpatterns = [
 1. /greeings/hello/
   - path('greetings/', include('greetings.urls)),
   - path('hello/', views.hello_view),
+
+## 20. 메인페이지가 에러페이지?
+1. 프로젝트 앱 아래의 urls.py
+  - path('', include('foods.urls'))
+
+## 21. Django 템플릿과 렌더링
+1. 더 많은 HTML을 리턴하고 싶다면?
+  - HTML 같이 화면 구성을 담당하는 것을 `Template`이라고 부르는데요.
+  - 우리는 foods 앱을 작업중이니까, foods 앱 디렉토리 안에 **Template 파일들을 넣어줄 디렉토리**를 하나 만들도록 하겠습니다.
+  - foods/templates 폴더를 만든다.
+  - foods/templates/foods 만든다.
+  - index.html : `index 템플릿`
+```html
+<h2>Hello, Django!</h2>
+<p>Just Codeit ! </p>
+<p>Just Codeit ! </p>
+<p>Just Codeit ! </p>
+<p>Just Codeit ! </p>
+```
+2. `Template을 Render 한다`
+  - Template을 유저에게 보여준다.
+  - render 함수를 써주고, 첫번째 파라미터로 `request`를 넘깁니다.
+  - 그리고 두번째 파라미터로는 `우리가 원하는 템플릿의 경로`를 써줘야 하는데, 
+  - 방금 만들어준 HTML 경로를 적으면, `foods/index.html`
+  - 이 render 함수는 우리가 이렇게 넘겨준 정보와 템플릿을 토대로 **하나의 응답**
+  - 즉 하나의 `HttpResponse 객체`를 만들어서 리턴해 줍니다.
+```py
+def index(request):
+  return render(request, 'foods/index.html')
+
+```
+  - 화면 구성을 담당하는 부분: `Template`
+  - Rendering(렌더링)이라는 과정을 통해서,
+  - 클라이언트에게 응답으로 돌려줄 최종 형태인 `HttpResponse 객체`로 변환한다는 것을 배웠습니다.
+  - 이제 우리는 유저에게 보여줄 HTML 코드를 템플릿으로 깔끔하게 정리할 수 있습니다.
+
+## 22. render() 함수에 대해 알아보자
+1. render()
+  - render(request, template_name, context=None, content_type=None, status=None, using=None)
+
+2. 필수 인자
+  - request와 template_name
+  - request를 넘겨주는 이유는 요청에 대한 정보에 접근해서 `user, session 등 여러 가지 기능을 구현하기 위해서`
+  - template_name은 렌더링에 사용할 대상 템플릿을 명시
+
+3. 선택 인자
+  - `context`는 템플릿에 추가할 값들이 들어 있는 사전형 인자
+  - `context_type`은 결과로 만들어 내는 문서의 유형을 말하며 기본값은 `text/html` 즉 HTML 웹 페이지 입니다.
+  - `status`는 상태 코드(Status Code)값이며 기본값은 200(성공)입니다.
+  - `using`은 템플릿을 렌더하는 템플릿 엔진을 지정할 수 있는 인자입니다.
+
+4. 두 개의 render
+  - Django Template Language를 써서 작성한 코드
+  - HTML 파일을 브라우저가 읽어서 우리가 실제로 보는 이쁜 웹 페이지로 바꿔주는 과정
+
+
+## 23. Django MVT 아키텍처
+1. Model, View, Template
+
+2. Model
+  - 데이터 구조를 담당
+  - 데이터베이스와 소통
+
+3. Template
+  - 웹 사이트의 화면 구성 담당
+  - HTML, CSS, JS 로 구성한다.
+  - `Template Language` : 매번 변화하는 데이터에 따라서 화면을 다르게 구성할 수 있습니다.
+  - django 템플릿은 기본적인 틀은 HTML로 작성하고, 
+  - 세부내용은 Template Language를 사용해서, 구현하게 됩니다.
+
+4. View
+  - 웹 사이트의 로직을 담당하는 파트
+  - Model과 Template 사이를 연결하는 역할을 합니다.
+
+
+5. 정리
+  - URL 요청(Request)이 들어오면, URL에 가리키는 **View**를 호출합니다.
+  - 호출된 View에서는 필요하다면 **Model**을 통해서 데이터베이스와 소통하며, 데이터 처리를 합니다.
+  - View에서 알맞은 로직에 맞춰서 데이터를 가공한 후에
+  - 이를 **Template**으로 보내고, Template에서는 데이터를 받아서, 화면을 구성하고, 
+  - View에서 만들어진 화면을 클라이언트에게 응답(Response)한다.
+
+## 24. MVC와 MVT
+1. MVC 패턴
+  - Model: 데이터를 저장, 보관
+  - View: 사용자에게 보여지는 부분을 담당
+  - Controller: 사용자의 입력을 받아서 내부 로직을 처리
+
+2. MVC 아키텍처와 MVT 아키텍처
+  - Model: 데이터베이스와 소통
+  - View: 로직은 담당
+  - Template: 화면 구성을 담당
+  - Model -> Model
+  - View -> Template
+  - Controller -> View
+
+## 25. 한 번에 이해하는 Django
+1. 프론트엔드,백엔드,풀스텍
+
+2. 클라이언트, 서버, URL
+
+3. url,view,model,template,mvt
+
+## 26. 코스토랑 프로젝트 #02 URL 연결하기
+1. costaurant/urls.py 수정
+```py
+path('menus/', include('menus.urls')),
+```
+
+2. menus/urls.py 수정
+```py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('index/', views.index_view)
+]
+```
+
+3. menus/view.py 수정
+```py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index_view(request):
+    return HttpResponse("<h2>코스토랑 오픈!</h2>")
+```
