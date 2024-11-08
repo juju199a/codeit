@@ -303,3 +303,58 @@ def index(request):
 2. `today`를 Key로 하고 today를 value로 하는 사전형 데이터를 만들어서 context 변수에 담아 주세요.
 
 3. `render()` 함수의 세 번째 인자로 context 데이터를 템플릿으로 전달합니다.
+
+## 13. Django의 우아한 URL
+1. 우아한 URL
+  - URL을 우리가 원하는 형태로 구성
+  - 직관적이고 알아보기 쉬운 구조
+
+2. `동적 URL (Dynamic URL)`
+  - `foods/checken/' 처럼 다음에 음식 이름이 계속 나오게 되겠죠?
+  - 경로 변수 (Path Variable)를 이용한 `동적 URL`
+
+3. `<str:food>, views,food_detail`
+  - foods 앱의 urls.py 로 가서
+  - path('chicken/', views.chicken) 부분을 지워주고 
+```py
+path('menu/<str:food>', views.food_detail)
+```
+  - `<str:food>` : 동적으로 바뀌는 URL을 `변수`를 이용해 처리할 수 있게 해 줍니다.
+  - 이 부분을 쉽게 설명하면, URL에서 menu 다음에 슬래쉬(/), 즉 `경로 구분 기호`를 제외한 모든 URL을 문자열로 보고, `food`에 담아서 food_detail 함수를 호출 할 때, `인수`로 넣어 줍니다.
+  - str 대신, 0또는 양의 정수를 체크하는 `인트<int:variable>`,
+  - 하이픈(-) 또는 언더바(_)로 연결된 문자열과 일치하는 체크하는 `슬러그<slug:variable>` 예시: what-is-slug-in-django 등이 있습니다.
+
+4. `food_detail` 뷰를 만들어 보겠습니다.
+  - views.py로 가서
+```py
+def food_detail(request, food):
+  return render(request, 'foods/detail.html')
+```
+  - ~/foods/menu/`pasta` 에서 pasta 부분을 food 변수에 담아서 detail 뷰를 호출 할 때, 인수로 넘겨 준다고 했었죠?
+  - 그래서 detail 뷰 함수를 정의할 때, 넘어온 변수를 받아줄 파라미터를 넣어줘야 합니다.
+
+5. `context (3번째 인수)` 뷰에서 템플릿으로 전달
+  - `음식이름`을 food로 받았으니까, 이 `음식이름`을 화면에 표시하려면, `뷰에서 템플릿으로` 데이터를 넘겨줘야 한다.
+  - 바로 사전형에 담아서, `render 함수`에 `3번째 인수`로 넘겨주면 됩니다.
+```
+context = {"name": food}
+return render(request, 'foods/detail.html', context=context)
+```
+
+6. detail.html
+  - 이제 남은 것은 detail 템플릿을 만들어 주는 것입니다.
+```html
+<h2>{{name}}<h2>
+```
+  - 뷰에서 넘어온 객체를 사용할 때는 `템플릿 언어` 중에서 `템플릿 변수`를 사용했었다.
+  - `{{variable}}`
+
+7. 개발 서버를 킨다.
+  - `localhostL8000/foods/menu/checken/
+  - 이 URL에서 menu 다음에 `chicken` 부분이 food 라는 변수에 들어가고, 
+  - food 라는 변수를 `템플릿`에서 받아서 화면을 보여 주고 있습니다.
+  - 여기에 `pasta/` 라고 넣으면 URL에 맞게 화면이 구성됩니다.
+  - 자동으로 URL에서 값을 가져와서, view를 거쳐서, 템플릿으로 전달 되는 것입니다.
+
+8. 정리
+  - 경로 변수를 사용해서, 모든 페이지의 URL을 따로 적어줄 필요 없이, 내가 원하는 일정 형식을 정해서, URL을 작성할 수 있습니다.
