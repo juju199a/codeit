@@ -358,3 +358,47 @@ return render(request, 'foods/detail.html', context=context)
 
 8. 정리
   - 경로 변수를 사용해서, 모든 페이지의 URL을 따로 적어줄 필요 없이, 내가 원하는 일정 형식을 정해서, URL을 작성할 수 있습니다.
+
+## 14. Django URL 더 알아보기
+1. URLconf (urls.py)
+```
+from django.urls import path
+from . import views
+
+urlpatterns = [
+  path('URL', views.player),
+  path('video/', include('videoApp.url')),
+]
+```
+
+2. URL 처리 순서
+  - settings.py의 `ROOT_URLCONF` 설정을 사용합니다.
+  - `urlpatterns`의 django.urls.path() 함수를 순서대로 실행합니다.
+  - `view`를 호출
+
+3. Path 함수 알아보기
+  - `django.urls.path`
+  - path(route, view, kwargs=None, name=None)
+
+4. route
+  - `경로 변수(Path Converter)`를 사용
+  - Path converters
+  - str: 경로 구분 기호(/)를 제외한 모든 문자열과 매칭되비다.
+  - int: 0 또는 양의 정수와 매칭됩니다.
+  - slug: 문자, 숫자, 하이픈(-), 밑줄(_)로 구성된 문자열과 매칭됩니다.
+  - uuid: 범용 고유 식별자(UUID)와 매칭 됩니다.
+  - path: 경로 구분 기호(/)를 포함한 모든 문자열과 매칭 됩니다.
+
+5. view
+  - 함수형 view 또는 클래스 기반 view가 들어갈 수 있고, 우리가 위에서 적어준 것처럼 include를 사용해서 다른 URLconf 모듈로 연결할 수도 있습니다.
+
+6. kwargs
+  - view에 추가 인자를 전달 할 때 사용합니다.
+
+7. name
+  - URL 패턴에 이름을 붙임
+  
+
+
+
+
