@@ -1,0 +1,528 @@
+## 1교시
+- 홍유진님 설치
+- 서울 플로터 오거나이즈
+- 크로스 플랫폼
+- 빌드, 배포까지 다 가능하다.
+- 하나의 플랫폼으로 제공
+- Flutter : 구글이 만든 크로스 플랫폼 개발 프레임워크
+- 프레임워크 : 정해진 틀 제공
+- 크로스 플랫폼: 웹은 웹, 안드로이드는 안드로이드
+- Flutter / React native : PWA
+- 네이트브 코드로 컴파일러
+- 빠른 개발
+- Hot Reload
+- Hot Reload 코드를 수정하고 빌드 없이 바로 볼 수 있다.
+- 위젯 중심: 레이아웃, 페이지
+- javascript 웹, 앱
+- 웹도 빌드, 리액트 빌드
+- Dart 언어를 통해서 만들어진다.
+- Dart는 Flutter에서만 만들어진다.
+- `JIT 컴파일` / `AOT 컴파일`
+- 개발을 위한 컴파일, 배포를 위한 컴파일 엔진을 사용
+- Skia 고유의 위젯을 실감되게 표현 (Flutter의 그래픽 엔진)
+- 위젯 라이브러리
+- iOS 애플은 쿠퍼티노 위젯을 사용한다.
+- Material 디자인
+- 앱 내에서 커스터마이즈 해야 할지
+- 프래임워크이다. 그것에 맞게 개발하면 된다.
+- 유연한 애니메이션 및 
+- skia 3.0 
+- 엔펠라 엔진 - 고성능 애니메이션 - 대표적인 포인트
+- 테스트와 디버깅 지원
+- 인스팩터를 지원: 보면서 디버깅을 할 수 있다.
+- 대표적인 회사
+- 구글 페이, 
+- 고성능의 3디 작업
+- Hello Flutter!
+- Flutter 설치
+- 프레임워크
+- 다 셋팅을 해야만 진행할 수 있다.
+- 안드로이드 스튜디오, VS Code : IDE, Edit
+- Set up Flutter
+- Android toolchanin
+- Xcode
+- Chrome
+- Flutter 폴더 구조 (디렉토리 구조)
+- andriod/
+- ios/
+- build/
+- lib/
+- main.dart : 앱의 진입점(entry point) 역할 즉, 주요 개발 작업이 이루어지는 곳, 
+- test/
+- pubspec.yaml 야멜 파일: Flutter 프로젝트의 설정 파일: 앱에서 사용될 
+- 네이버 앱, 폰트 등을 설치. 외부 의존성을 관리
+- https://docs.flutter.dev/get-started/install/windows
+- 설치하기
+- Flutter 환경 설정
+- 편집기
+- 안드로이드 스튜디오나 VSCode를 선택
+- 플러터 iOS, Android 플랫폼 선택
+- 시뮬레이터를 돌릴 수 있다.
+- 가상으로 빌드
+- 개발 타겟
+- 윈도우 노트북
+- 프로젝트의
+- DartPad 검색
+- Sample > Counter
+- Run
+- 가상으로 앱이 뜬다.
+- 카운터 앱을 보면, 기초적으로 
+- main.dart 파일이다.
+- main 이라는 함수에서 다 돌린다.
+- 우리 앱을 만들 수 있다.
+- 빌드라는 곳 안에 모든 앱이 다 들어간다.
+- 타이틀: Flutter Demo Home Page
+- 테마: Blue
+- 테마 머터리얼 데모 ID 어떻게 정의를 해야 하는지
+- 커다란 앱을 포함하는 것이 
+- StatefulWidget
+- 상태: 웹쇼핑을 살때, 상호작용할 때, 상태로 이뤄져 있다.
+- 증가되고 있는 숫자가 상태이다.
+- 기억하고 있다가 보여준다.
+- StatefulWidget
+- StatelessWidget: 버튼이나 없이 보여 준다. 포토, 텍스트
+- counter 변수 설정 int _counter = 0
+- on press 로 카운드를 증가시켜라
+- = 은 변수를 할 당하겠다.
+- _는 private 변수이다.
+- 울며 겨자 먹기로 맥을 설치 해야 한다.
+- VSCode 와 같은 것이지만, Flutter 설치를 안내한다.
+- Windows는 xcode를 설치하지 않아도 된다.
+- 안드로이드스튜디오 툴 체인 말고 VSCode를 설치해도 된다.
+- Android Studio 플라밍고
+- 2022.2.1 (April 2023)
+- 안드로이드 SDK
+- 툴체인
+- 개발 한 것을 확인할 수 있는 안드로이드 스튜디오에 있다.
+- cd 해당 경로
+- ls
+- flutter create my_practice_app
+- 모달 창이 뜨면 신뢰한다고 하고,
+- 안드로이드 채인을 설치한다.
+- 환경 설정이 여렵다.
+- 쿼리 명령형 UI 선언
+- 일반적인 웹 UI <a> 라는 태그에서 css를 바꾸려면,
+- 클래스 네임
+- 쿼리 선언형 UI 선언
+- Flutter에서는 모든 것이 위젯이다.
+- 웹사이트
+- 플로터에서 위젯이다.
+- 모든 것이 위젯이다.
+- 플로터, 웹 프레임워크, 기능은 html
+- css에서 이쁘게 해라
+- Widget을 사용한다.
+- 어떤 레이아웃 형태로 할지
+- Flutter는 나눠져 있지 않다.
+- 기본적인 위젯 중에서 Common Buttons
+- 한개의 위젯
+- 버튼과 버튼의 스타일
+- 버튼의 스타일을 입혀주면 된다.
+- Text 도 위젯이다.
+- 대표적인 위젯
+- 안드로이드 스튜디오 
+- class MyApp extends 침ㄴㄴ My
+- State
+- Stateless
+- 상태값 없는
+- 어플리케이션이 사용자에게 인터렉션을 해야 하는 모든 값들
+- State
+- Stateless : 생태값 없는, 바뀔 필요가 없다.
+- myhomepage
+- setstate()
+- Text 위젯 중에서 카운트 값을 참조하고 있다.
+- 위젯을 파기하고 새로 만든다.
+- MaterinApp
+- 검증이 이뤄져 있지 않았다.
+- 모바일 어플리케이션, 충분히 가치 있는 것
+- 디자인 가이드를 배포해서
+- 애플은 정해준 
+- 쿠퍼티노 : 정해준 형식
+- MaterialApp 디자인을 따라야 하는 것은 어렵다.
+- MaterialApp으로 선언하면 어려 위젯들을 가져다 쓸 수 있다.
+- home
+- route: 홈페이지 
+- 웹 사이트에서 
+- 자료형으로 이뤄져 있다.
+- 웹테크 세미나
+- 앞으로 가기, 뒤로 가기, 새로 고침
+- 링크드 리스트
+- 모바일은 스택 구조
+- 모바일에서 페이지를 만들 때, 
+- 스택이 4개 쌓여 있다.
+- 스캣폴더: 머터리얼 폴더, 기초 공사, 철근 올리고.
+- 앱이라고 
+- 시뮬레이터
+- 어플리케이션 
+- 타이틀을 보여주는 것 AppBar
+- 스캡폴더
+- 머터리얼 페이지 라우터: 우편에서 주소를 쓰고, 웹사이트와 같이 앱에서는 route 경로가 있다.
+- 라우터가 어떻게 쌓여 있는지는 네비게이터 안에 있다.
+- 스켓폴더
+- 스캣폴더를 열면 여러가지가 있다.
+- 앱바 버튼 앱바
+- 어플리케이션 밑 단에 있다.
+- 햄버거 바 : 드로우바
+- 버튼 바
+- 스낵 바: 알림창
+- 스캣 폴더 어플리케이션 만들어 줌
+- home: Text('그냥 텍스트 위젯')
+- 빨간색이 나옴: 머터리얼 위젯과 스캣 폴더가 없어서 나옴
+- home: myHomePage()
+- 플로터 웹
+- 펍스펙 야무 파일
+- 패키지들을 쓰고 있는 것의 파일이 필요하다.
+- pubspec.yaml
+- 인탠드가 굉장히 중요하다.
+- 야무 파일의 주석을 꼭 읽어라
+- name: 빌드 이름
+- 어플리케이션 이름
+- iOS는 버전이 
+- 다트라는 언어로 설정된다.
+- dependency
+- pubdev
+- 패키지 검색하는 곳
+- 맥주 펍
+- animated_text
+- 챗봇을 만들고 있다.
+- 타이포 치는 느낌
+- 애니 메이티드 컷
+- 디펜던씨를 바로 쓸 수 있다.
+- Animated
+- import 한다.
+- 텍스트 키
+- Typewriter
+- API와 라이센스를 보면 된다.
+- 3.4 버전
+- 다트 3 쓰기 힘들다.
+- 높을 수록 패키지 이다.
+- gorouter: 한달에 한번 업데이트
+- 패키지 생태계가 많이 발전되어 있다.
+- 플로터는 위젯으로 이뤄져 있다.
+- CSS 엘리먼트 위치를
+- 센터는 사이즈가 없다.
+- 자식 요소의 레이아웃 역할을 한다.
+- 화면 한가운데 있다.
+- Center를 지우면 제일 위에 있다.
+- 위젯을 통해서 조절한다.
+- 대소문자로 구분을 할 수 있다.
+- 특정 패키지도 같이 낮게 써야 한다.
+- pub 프로젝트 버전은 이었다. 강제 해야 한다.
+- 문법적 오류를 잡아준다.
+- 대표적으로 귀찮다고 하는 리터럴
+- const 를 굉장히 강조
+- 불필요한 메모리 관리에 엄청나게 집착한다.
+- 야무 파일을 사용해서 에러로 만들 수도 있다.
+- Write your first app
+- 내용을 main.dart에 넣는다.
+- fvm 
+- english-words 를 추가
+- 랜덤한 영어 단어를 던져 주는 패키지
+- 버튼 하나 추가
+- fvm flutter run -d chrome
+- fvm 은 버전 매니져
+- -d 디바이스
+- 웹 사이트 빌드
+- 모바일 그대로 웹으로 빌드해 주라
+- 크로스 플랫폼 
+- fvm flutter run 디바이스 목록이 뜬다.
+- 코퍼티노 디자인을 안드로이드에 쓸 수 있다.
+- 크로스 플랫폼
+- 소스 코드를 안밖고 실행
+- First Hot Reload
+- 재실행 안하고, Hot
+- 저스틴 타임 컴파일
+- 자바 스크립트 컴파일
+- 어해드오프 타임 컴파일
+- 플로터는 
+- 개발 모드와 실행 
+- 어해드오브 타임 컴파일은 최적화 됨
+- 저스틴 타임 컴파일은 바로 반영이됨
+- 스캣폴더 부분
+- 버튼이 하나 추가됨
+- Next 버튼이 생김
+- 머터리얼 3로 전환을 할거냐 말거냐: 지금은 사용 안함
+- MyApp > MyHomePage > SomeWidget 
+- Flutter 위텟 트리로 
+- SigleChild - 화면에서 하나로 묶어야 할 때, 레이아웃을 짤 때, 자식은 하나로 두고,
+- MultiChild - 리스트 형태
+- Widget : Context (맥락)
+- 위치는 어디에 있고, 엄청 많은 정보가 있음
+- 맥락을 알고 가야 한다.
+- 화면이 트리 형태로 되어 있다.
+- MyHomePage > MyAppState 
+- context를 짜보고 UI를 구성한다.
+- MyAppState, getNext(), notifyListerners()
+- 다른 위젯에게 내 상태가 바꼈습니다. 라고 알려준다.
+- provider: 똑같으데 편하게 쓰려고 한다.
+- onPress에게 get Next를 적용할 수 있어야 한다.
+- print 문에 getState
+- shortchain
+- 상태를 변경함
+- 이벤트 드리븐: 사용자의 이벤트에 따라서 작동
+- 이것과 비슷함
+- 선언형 UI의 패러다임
+- 상태만 바꿨는데, 자동으로 리로드가 됨
+- UI 만 선언만 해 놓고, State만 넣는다.
+- Flutter로 모든 것을 만들 수 있다.
+- class MyHomePage extends Widget
+- BigCard extends StatelessWidget
+- 프론트 엔드 병: 재사용성 넘치는 컴포넌트를 만들어야 한다.
+- StateLess
+- WordPress
+- BigCard 중간에 넣고 싶다.
+- main.dart 안에 Widget을 만들어 주고, 텍스트 테마까지 입히면, 
+- Theme.of(context)
+- 부모의 테마를 가져 올 수 있다.
+- 맨 위에 Material Thema를 선언해 줬다.
+- copyWith : 불편 객체를 만드는데, 위젯값을 바꿀 수 없다.
+- 불편 객체를 만든데, 한 줄 만 바꾸자.
+- 패팅: 20픽셀 만큼 넣어 주겠다.
+
+
+## 2교시 오후
+- 액세스빌리티: 접근성
+- 구글이라는 조직이 다양성이다.
+- 액세스는 티비에서 공중파 방송 자막이나 수화
+- 제약이 없어야 한다.
+- SEO 검색 최적화
+- 텍스트 위젯에 스타일 및에 시만텍 라벨을 만들어 줄거임
+- 시맨틱 라벨을 읽어 주는 것 있다.
+- 프론트 개박자로 살면 부족한 것이 맣아야 한다.
+- 스캣 폴더의 바디
+- 센터로
+- 가운데 놓기가 힘든데, 센터의 매인 액세스 얼라인먼트
+- 메인 액시스
+- mainAxisAlignment- Center
+- mainAxisAlignment start 제일 위
+- mainAxisAlignment end 끝
+- 그 사이는 적절히 간격을 둔다.
+- crossAxisAlignment: 
+- 기능을 추가 하고 싶을 때
+- 상태값을 추가 해야 한다.
+- WordPair 리스트에 집어 넣는 동작이 필요하다.
+- favorites
+- Next - Like 옆으로 되어야 하는데
+- Row (
+-    mainAxisAlignment: MainAxisAlignment.center
+-    children: [
+-     
+-   ]
+- )
+- 상태를 바꾼다. 기본적으로 상태
+- 화면이 가지는 정보
+- nagivation
+- codelabs.developers.google.com/codelabs/flutter-codelab-first
+- 윈도우 제어판의 왼쪽의 메뉴
+- Statefull Widget
+- MyHomePage extends StatefullWedget으로 만들고
+- MyHomePageState extends 
+- 네비게이션
+- case 1: PlacerHoder
+- 페이지로
+- 네비게이션 해당 네비게이션 매칭으로 간다.
+- 위젯들의 리스트
+- 여러가지 방식
+- 이것을 레이아웃 필더 감싸줄 것이다.
+- 플로터 제약사항
+- 부모님 밑에 있다가 자식이 싸이즈가 너무 커지면, 
+- 부모위젯 위주는 자식위젯에게 제약사항을 준다.
+- 네비게이션레일에 600픽셀 이상이면 다시 그려준다.
+- 화면 레이아웃이 너무 작으면 노란색으로 경고가 나온다.
+- 레이아웃 필드
+- 플레이스 홀더 페이지를 라이크로 바꾼다.
+- 한 파일에 몰아서 작성하는 것은 아니다.
+- context.watch
+- context.read
+- read 상태 값이 읽어 온다. 처음에 읽어온 값만 읽어 온다.
+- watch 잘 바뀌는지 지켜 보고 있다.
+- 좋아요 단어를 추가 했을때, 
+- 피쳐 화면으로 구분
+- 도메인로 구분 (데이터, 모델, 유즈케이스, 데이터 프로바이더)
+- 마이크로 서비스 아키텍쳐
+- Settings > Flutter Install
+- Project Structure
+- DOM (Document Object Model)
+- 트리구조, HTML 노드로 표시 한다.
+- 명령형 UI
+- 선언형 UI
+- CSS 
+- UI를 트리 형태로 표현한다.
+- 랜더링 표현을 한다.
+- 선언형 UI (Declarative UI): 전체 DOM 트리가 다 바뀐다.
+- 명령형 UI (Imperative UI): 패러다임이 바뀜
+- 어펜드 촬드
+- 먼저 통일 하자. Web 표준을 정하자
+- 규격 통일
+- CSSOM
+- CSS트리는 CSSOM(CSS Object Model)
+- 내가 선택한 css 모델이 붙어 있는 것
+- 단독으로 사용하지 않고 DOM 트리와 결합
+- Flutter
+- Chrome 
+- React
+- 가상 DOM 트리를 가지고 있다.
+- 가짜 DOM 트리
+- diff 알고리즘 
+- 바뀐 DOM만 랜더링 하도록 한다.
+- 가상 트리가 
+- 상태 기반의 URL
+- Virtual 리액트 플로터에서는 상태가 내장 되어 있다.
+- Flutter 웹
+- 010-3902-3670
+- 플로터 웹
+- 스키아 라는 랜더링
+- 복잡한 그래픽 리소스
+- 크로스 플랫폼 할 때 웹은 
+- Dart를 자바스크립트로 바꾸는 것만 있으면 되지 않을까
+- DOM 및 CanvasKit 랜더링
+- 캔버스킷
+- 웹페이지 Document
+- 캔버스
+- 이렇게까지 많이 쓸 줄 몰랐다.
+- 캠버스 킷: 저수준 그래픽 라이브러리
+- Flutter 2.0을 출시 하면서
+- WebAssembly
+- Web 브라우저 엔진이 javascript로 되어 있다.
+- Flutter의 Dart라는 언어를 만들었다.
+- 구글이 자바스크립트 엔진 - 타입스크립트
+- 모던 하고 아름다운 언어 다트를 만듦
+- 다트 최악의 프로그램
+- Flutter 반응이 좋다.
+- Flutter Web 사이즈를 손을 봐야 함
+- 모바일 웹 기반의 프로그래시브의 
+- 서치 엔진 
+- 구글 검색 엔진 옵티마이제이션
+- Flutter
+- 화면 전체가 캠버스 킷이다.
+- SEO 검색 엔진 - 메타 엔진, 서치 엔진 옵티마이제이션
+- Flutter Web은 검색 안됨
+- 자바스크립트 프레임워크
+- Flutter web
+- 일반적인 웹 사이트가 아니다.
+- 모바일 뿐만 아니라 
+- Dart와 JS의 차이
+- Flutter는 다른 언어
+- 다트: int 와 double을 구분
+- 자바스크립트: 타입 구분 없음
+- 타입, 널
+- 타입 세이프티, 널 세이프티
+- 널 포인트 Exception이 어지간하면 발생하지 않는다.
+- 널로 부터 안전하다.
+- 웹에 다른 웹에 삽입하는 방법
+- iframe 내 웹사이트에 웹사이트를 끼워넣을 수가 있다.
+- 보안상의 취약점
+- 써드파티 쿠키
+- 행동 정보로 광고 주는 것은
+- 서드파티 쿠키는 퇴출되어야 한다.
+- 크로스 오리진 
+- Flutter Web embedded 모드
+- 호스트 페이지
+- 플로터 애플리케이션
+- 임베디드 모드
+- 타입시스템 비교
+- 함수 타입
+- 다트를 자바스크립트로 바꿔야지 통신을 한다.
+- 연속적인 데이터
+- 딱 하나의 
+- Restful API를 비동기
+- 다트의 인터페이스 
+- 다트는 타입세이프티
+- 자바스크립트는 타입 세이프트가 아니다.
+- 타입변환 할때 조심해야 한다.
+- 
+## 3교시
+- indent rainbow
+- rainbow indent
+- flutter
+- 배포가 가능한 파일
+- Firebase 백엔드 서비스
+- 호스팅도 지워한다.
+- App Hosting
+- 루트
+- 바껴서 작성했다.
+- canvaskit
+- skwasm.js //스케화 웹 어쌤플리
+- S 
+- 자바스크립트로만 짜도 괜찮다.
+- 검색 엔진, html은 저비용, javascript 는 걸리기가 어렵다.
+- angular를 사용한 페이지
+- Dart2JS
+- 플로터에서 자바스크립트로
+- 그 메시지를 플로터로 보내는 것
+- 상호 작용 인터렉션 
+- Freezed 패키지
+- REST API
+- Json, DB String 문자열
+- 다트에서 사용할 수 있는 모델로 바꿔야 한다.
+- 왼쪽에 엄청 길다. 모델 클래스
+- 생성자, 카피위드, 투제이슨, 해수코드 얻음, from 제이슨
+- 빌드 방법
+- flutter pub add freezed_annotation
+- flutter pub add dev:build_runner
+- flutter pub add json_annotation
+- flutter pub add dev:json_serializable
+- part 'user_model.dart'
+- 유저 모델 객체에서 다 구현을 안하더라도 가져 올 수 있다.
+- main.dart
+- const User 쟈소 _$User 
+- freezed 가 생성한 어노테이션
+- mixed in 다중 상속 가능한가요?
+- 어노테이션 컴파일 할 때 코드를 생성한다.
+- flutter pub add js
+- 자바 스크립트로 
+- JSPromise 
+- JSObject
+- 다트로 해도 되고, 플로터로 해도 됩니다.
+- 자바스크립트 로 던져서 리액트에서 컨트롤 한다.
+- 다트언어와 자바스크립트가 서로 다른 언어다.
+- 자바스크립트로 실행을 해야 해
+- 자바스크립트에서 서치 유저로 되면
+- 원하는 유저 정보를 만들고
+- 콜을 해서
+- 자바스크립트에서 누르면 된다.
+
+## 4교시
+- cmd 창에서
+- dart run build_runner build
+- 를 하고 실행을 시키면 된다.
+- 
+
+## 5교시
+- Flutter
+- 리액트 프로젝트
+- React <-> Flutter
+- 플로터 프로젝트
+- 리액트 프로젝트
+- flutter 
+- mkdir flutter-react-chat
+- flutter-chat
+- 필요한 폴더를 만든다.
+- 폴더 구조를 파악하면 금방 만든다.
+- 자바스크립트 브릿지를 만든다.
+- 플로터와 리액트 사이
+- 스타일 업데이트
+- flutter build web
+- build_web 복사 해당 폴더에 붙여 넣기
+- recact 부분을 수정
+- 챗메시지 
+- flutterMessage 라는 것을 감지하면 
+- element
+- 서비스 워커
+- Flutter도 서비스 워크 레벨에서 작동을 한다.
+- npm 
+- 서빗 워크 
+- iframe을 사용하지 않고, flutter/flutter.js를 
+- 모바일 브라우저
+- 플로터 패키지
+- 웹 어셈블리
+- 피그마
+- 웹 어셈블리
+- WASM 파일
+- 브라우저에서 네이티브 성능
+- 피그마
+- 
+
+
+
+
+
