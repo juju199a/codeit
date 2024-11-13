@@ -335,6 +335,382 @@ export default App;
 
 ## 15. 컴포넌트 문법
 1. 리액트 엘리먼트
+  - `JSX 문법으로 작성한 요소는 결과적으로 자바스크립트 객체가 됩니다.`
+  - `이런 객체를 리액트 엘리먼트라고 부르는데요.`
 
+2. 리엑트 컴포넌트
+  - `한가지 주의해야 할 부분은, 리액트 컴포넌트의 이름은 반드시 첫 글자를 대문자로 작성해야 한다는 것입니다.`
+  - `컴포넌트 이름의 첫 글자가 소문자라면 오류가 발생하니깐 꼭 주의해 주세요!`
+
+## 16. Props
+1. 컴포넌트에 속성을 지정하는 방법
+  - 리액트에서 JSX 문법으로 html 태그를 작성할 때, 속성을 지정할 수 있고, 
+  - 이 속성에 자바스크립트 코드가 필요하다면, **중괄호**를 활용하면 된다.
+  - 그런데 html 태그 뿐만 아니라, <Dice /> 와 같은 리액트 컴포넌트에도 **속성**을 다양하게 지정할 수 있는데요.
+  - `<Dice color="blue" />`
+  - 오류 없음 > Elements에는 color 안보이고, Components에 color가 보인다.
+
+2. 프롭스
+  - 개발자 도구를 열어서 html 구조를 확인해 보면, color 라는 속성을 어디에서도 찾아 볼 수 없습니다.
+  - 왜냐하면 우리가 작성한 color 속성은 html 태그가 아니라, `리액트 컴포넌트`에 지정해준 `속성`인데요.
+  - 그래서, **리액트 개발자 도구**의 `Components` 탭에서 `Dice 컴포넌트`를 클릭해 보면, 
+  - `프롭스(props)` 라는 곳에 color라는 속성에 blue라는 값이 잘 지정되어 있는 것을 확인할 수 있습니다.
+  - 리액트에서는 컴포넌트에 지정한 속성을 `프롭스`라고 부르는데요.
+  - 프롭스는 `프로퍼티스`의 줄임말이라고 생각하면 된다.
+  - 프롭스는 컴포넌트에 전달된 속성을 모두 가르키기 때문에, 각각의 속성은 `프롭`이라고 부른다는 점도 참고해 주시기 바랍니다.
+  - **앞으로 컴포넌트의 속성 대신에 프롭 이라고 부를 것이다**
+
+3. 컴포넌트 내에서 사용
+  - 컴포넌트에 지정해 둔 속성은 `하나의 객체` 형태로 컴포넌트 함수의 `첫번째 파라미터`로 전달됩니다.
+  - Dice 컴포넌트 함수의 첫번째 파라미터를 props로 한다.
+  - **props라는 의미를 보다 명확하게 하기 위해서 일반적으로 props를 사용한다.**
+  - 리액트 개발자 도구에서 봤던 props 부분이 `바로 이 객체` 인 것입니다.
+
+4. 빨간 주사위
+```
+function Dice(props) {
+  const diceImg = props.color == 'red' ? diceRed01 : diceBlue01;
+}
+```
+
+5. 배열로 지정
+  - `템플릿 리터럴 (백틱)`을 사용하면 문자열 안에 변수를 쉽게 삽입할 수 있다. 
+```js
+function Dice(props) {
+    const src = DICE_IMAGES[props.color][props.num-1];
+    const alt = `${props.color} ${props.num}`;
+    return <img src={src} alt="{alt}" />;
+}
+```
+6. `디스츠럭팅 문법 (destructuring) 구조 분해`
+  - 그런데, props 라는 값을 어쩔 수 없이 반복적으로 많이 사용하게 되었죠?
+  - 이럴 땐, props를 `디스츠럭팅 문법`을 활용해서, 코드를 깔끔하게 정리할 수 있다.
+  - props를 실수로 생략할 수도 있으니, 각 prop에 기본값을 지정해 줄 건데요.
+```
+function Dice({color="blue", num=1}) {
+  const src = DICE_IMAGE[color][num -1];
+  const alt = `${color} ${alt}`;
+  return <img src={src} alt={alt} />;
+}
+```
+
+7. App.js에서 color와 num `프롭스`를 적용
+  - `<Dice color="red" num=2>`
+  - 2에서 에러가 나느데, 자바스크립트의 숫자 2를 표현하려면, 그냥 쓰면 안되고, 반드시 `중괄호`로 감싸줘야만 합니다.
+  - **num={2} 중괄호로 감싸줘야 한다.**
+
+
+## 17. 가위바위보 - HandIcon (2)
+1. value prop 추가 (destructuring: 구조 분해)
+```
+function HandIcon({ value }) {
+  return <img src={rockImg} alt="rock" />;
+}
+```
+
+2. 이미지 설정
+```
+const IMAGES = {
+  rock: rockImg,
+  scissor: scissorImg,
+  paper: paperImg,
+};
+const src = IMAGES[value];
+```
+
+## 18. 가위바위보 - HandButton
+1. button 안에 HandIcon을 배치합니다.
+```
+return (
+  <button>
+    <HandIcon/>
+  </button>
+);
+```
+
+2. 버튼을 클릭했을 때 handleClick을 실행하도록 button의 onClick 에다가 지정합니다.
+```
+const handleClick = () => onClick(value);
+return (
+  <button onClick={handleClick}>
+    <HandIcon />
+  </button>
+);
+```
+
+3. value를 내려줍니다.
+```
+const handleClick = () => onClick(value);
+return (
+  <button onClick={handleClick}>
+    <HandIcon value={value} />
+  </button>
+);
+```
+
+4. App.js에서 onClick을 실행한다.
+```
+const handleClick = (value) => console.log(value);
+<HandButton value="rock" onClick={handleClick}/>
+```
+
+## 19. children
+1. children 
+  - 직접 만든 프롭 말고도, 기본적으로 존재하는 프롭이 있습니다.
+  - `children`이라는 프롭이다.
+  - `children`은 컴포넌트의 자식들을 값으로 갖는 프롭입니다.
+
+3. Button.js
+```
+function Button({text}) {
+  return <button>{text}</button>;
+}
+```
+
+4. App.js
+  - Button 컴포넌트에서는 text라는 prop를 사용하고 있으니까, 
+```
+<Button text="던지기" />
+<Button text="처음부터" />
+```
+
+5. children으로 변경
+  - 그런데, 리엑트에서 단순히 바로 보여지기만 하는 값을 다룰 땐,
+  - 지금처럼 어떤 프롭을 만드는 것 보다는 `children`프롭을 활용하는 것이
+  - 코드를 좀 더 직관적으로 구성하는데 도움이 됩니다.
+
+6. children 프롭 확용
+```
+function Button({children}) {
+  return <button>{children}</button>;
+}
+
+<Button>던지기</Button>
+<Button>처음부터</Button>
+```
+
+## 20. 가위바위보 - 초기화 버튼
+1. 샐프 채점
+  - 버튼에 '처음부터'라는 텍스트가 잘 보인다.
+  - App 컴포넌트에서 '처음부터'라는 문자열을 `Button 태그`로 감쌌다.
+
+2. Button.js
+```js
+function Button({name, onClick}) {
+  return <button onClick={onClick}>{name}</button>
+}
+```
+
+3. App.js
+```js
+function App(){
+  const handleClearClick = (value) => console.log('처음부터');
+
+  return (
+    <>
+      <Button name="처음부터 onClick={handleClearClick} />
+    </>
+  )
+}
+```
+
+4. children 수정
+```js
+function Button({children, onClick}) {
+  return <button onClick={onClick}>{children}</button>
+}
+
+<Button onClick={handleClearClick}>처음부터</Button>
+```
+
+## 21. Props 정리하기
+1. Props
+  - JSX 문법에서 컴포넌트를 작성할 때 컴포넌트에도 속성을 지정할 수 있는데요.
+  - 리액트에서 이렇게 컴포넌트에 지정한 속성들을 `Props`라고 부릅니다.
+  - `Props`는 Properties의 약자인데요.
+  - 컴포넌트에 속성을 지정해주면 각 속성이 하나의 객체로 모여서 컴포넌트를 정의한 함수의 `첫번째 파라미터`로 전달됩니다.
+```js
+<Dice color="blue" />
+
+function Dice(props) {
+  return <img src={diceBlue01} alt="주사위" />;
+}
+```
+
+2. 속성값을 다양하게 전달
+```js
+<Dice color="red" num={2} />
+
+function Dice(props) {
+  const src = DICE_IMAGES[props.color][props.num - 1];
+}
+
+```
+
+3. Destructuring 문법을 활용
+```js
+function Dice({color='blue', num=1}) {
+  const src = DICE_IMAGES[color][num -1];
+}
+```
+
+4. Children
+  - `props`에는 `children`이라는 조금 특별한 프로퍼티(prop, 프롭)가 있습니다.
+  - JSX 문법으로 컴포넌트를 작성할 때 컴포넌트를 단일 태그가 아니라 
+  - `여는 태그`와 `닫는 태그`의 형태로 작성하면, 그 안에 작성된 코드가 바로 이 `children` 값에 담기게 됩니다.
+```js
+function Button({children}) {
+  return <button>{children}</button>;
+}
+
+<Button>던지기</Button>
+```
+
+5. Children 활용
+  - 참고로 이 children을 활용하면 단순히 텍스트만 작성하는 걸 넘어서 `컴포넌트 안에 컴포넌트`를 작성할 수도 있습니다.
+
+## 22. Props 퀴즈
+1. props를 올바르게 활용하는 코드
+  - `function Profile(props)`
+
+2. Menu 컴포넌트 안에 작성된 텍스트
+  - `props.children`
+
+## 23. State
+1. 지금까지
+  - 리액트 컴포넌트를 만들고, `Props`로 컴포넌트의 모습을 다양하게 변경하는 방법에 대해서 살펴봤습니다.
+
+2. 던지기 버튼 만들기
+  - 리액트 없이 html로만 구현한다면, 주사위 마다 html 페이지를 만들고 이동시키거나,
+  - 또는 자바스크립트로 html 요소 노드의 속성만 새롭게 바꿀 수 있다.
+
+3. 리액트
+  - 하지만 리액트에서는 이런 경우에 사용하는 핵심기능이 있습니다.
+  - 바로 `State`입니다. 
+  - `State`는 변수 같은 건데, State를 바꾸면, 리액트가 알아서 `화면을 새로 랜더링` 해 주는 것입니다.
+
+4. State 사용
+  - `import {useState} from 'react';`
+  - 리액트 패키지에서 useState라는 함수를 불러 와야 한다.
+  - 불러온 useState()는 일반적으로 이렇게 작성합니다.
+  - `const [num, setNum] = useState(1);`
+  - useState 함수는 파라미터로 초기값을 전달 받고, 이 함수가 실행된 다음에는 `배열의 형태`로 요소 2개를 리턴한다.
+  - 배열의 `디스스트럭팅` 으로 작성합니다.
+  - 배열의 두 요소 중에서, 첫번째 요소 `num`은 스태이트 값이다. 현재 변수의 값을 나타내는 변수입니다.
+  - 처음에는 초기값을 가지고 있다.
+  - 두번째 요소는 `setter 함수`인데요. 이 함수(setNum)를 호출할 때, 파라미터로 전달하는 값으로 State 값이 변경이 되는 겁니다.
+  - State를 사용할 때는, `num 변수`에 새로운 값을 할당 하면서 변경하는 것이 아니라, 
+  - 반드시 이 `setter 함수` (setNum)를 통해서만 변경해야 하는데요.
+  - 그렇기 때문에 변수에 `const 키워드`로 선언하고, setter 함수의 이름도 (어떠한 이름을 지어줘도 상관 없지만)
+  - 일반적으로 State 이름 앞에 set을 붙인 형태로 짓는 겁니다.
+
+3. 간단한 주사위 기능 버전
+  - `<Dice color="red" num={num} />`
+  - `handleRollClick`
+```js
+const handleRollClick = () => {
+  setNum(3);
+}
+```
+  - 이 함수를 던지기 컴포넌트에 onClick Props로 전달해준 다음에, 
+  - `이 Button에 대해서는 onClick의 Props에 대한 처리가 없다`
+  - 그러니까 Button 컴포넌트로 돌아가서, onClick Props를 받은 다음에, 
+  - `onClick 이벤트`에 `onClick Prop`을 등록해 주도록 하겠습니다.
+```js
+function Button({children, onClick}) {
+  return <button onClick={onClick}>{children}</button>;
+}
+```
+
+4. Random하게 바꾼다.
+```js
+function random(n) {
+  return Math.ceil(Math.random() * n);
+}
+```
+  - 이 함수는 파라미터 n으로 숫자값을 전달 받아서, 1~n까지 숫자를 랜덤하게 반환하는 함수입니다.
+  - `const nextNum = random(6);`
+
+5. handleClearClick 함수
+```js
+const handleClearClick = () => {
+  setNum(1);
+}
+```
+
+5. 정리
+  - State는 리액트에서 화면을 변경할 때 활용하는 굉장히 핵심적인 개념입니다.
+  - 리액트에서는 `State값`이 변경될 때마다, 화면을 새롭게 랜더하기 때문인데요.
+  - 컴포넌트에서 State를 사용하려면 useState를 불러와야 한다.
+  - 이 함수는 State와 setter 함수를 `배열 형태`로 리턴하는데요. 
+  - 그렇기 때문에 `디스츠럭팅`으로 작성한다는 것도 배웠다.
+
+## 24. 가위바위보 - 패 고르기
+1. state 추가하기
+  - `const [hand, setHand] = useState('rock');`
+  - `const [otherHand, setOtherHand] = useState('rock');`
+
+2. state 값 변경하기
+  - hand의 값을 nextHand로 바꿔 주세요.
+  - otherHand의 값을 generateRandomHand()의 리턴 값으로 바꿔주세요.
+```js
+const handleButtonClick = (nextHand) => {
+  setHand(nextHand);
+  setOtherHand(generateRandomHand());
+}
+const handleClearClick = () => {
+  setHand('rock');
+  setOtherHand('rock');
+}
+```
+
+3. INIT_VALUE라는 상수로 지정
+  - `const comparison = compareHand(me, other);`
+
+## 25. 참조형 State
+1. 총점을 계산하는 기능, 매번 점수를 기록하는 기능
+  - `배열`이나 `객체` 같은 참조형 State를 다룰 때, 주의해야 할 점에 대해서 알아 보겠습니다.
+
+2. 총점
+  - `const [sum, setSum] = useState(0);`
+  - setSum(sum + nextNum);
+  - setSum(0);
+  - {sum}
+
+3. 기록
+  - 배열로 만들면 된다.
+  - `const [gameHistory, setGameHistory] = useState([]);`
+  - gameHistory.push(nextNum);
+  - setGameHistory(gameHistory)
+  - setGameHistory([]);
+  - {gameHistory.join(',')}
+  - **사실 이것은 잘못된 방법입니다.**
+
+4. 자바스크립트의 기본형과 참조형
+  - 배열은 기본형이 아니라, 참조형입니다.
+  - gameHistory 변수는 기록들을 가진 배열 자체의 값을 가지는 것이 아니라, 
+  - 그 배열을 가리키고 있는 주소값을 가지고 있는 것이죠.
+  - method를 이용해서 배열의 새로운 값을 넣더라도, gameHistory에서 가지고 있는 `배열의 주소값`은 전혀 변하지 않는 것입니다.
+  - `배열의 요소가 바뀌긴 했지만, 변수들이 가지는 주소값`은 그대로이기 때문에, 이런 현상이 발생한 것입니다.
+  - 리액트의 입장에서도 State 값이 바뀌어야 새롭게 화면을 랜더하게 되는데요.
+  - **그래서 배열이나 객체 같은 참조형 타입을 변경할 때는 아애 전체를 새로 만든다고 생각하는 것이 좋다.**
+
+5. 새로운 값으로 만들기
+  - 가장 간단한 방법은 `스프레드 문법`을 활용하는 것입니다. 
+  - `setGameHistory([...gameHistory, nextNm])`
+  - 빈배열 안에서 gameHistory State를 펼쳐주고, 새로 추가할 요소를 붙여주면, `간단하게 새로운 배열`을 만들 수 있다.
+  
+## 26. 가위바위보 - 승부 기록
+1. 기록을 배열로 만든다.
+  - `const [gameHistory, setGameHistory] = useState([]);`
+
+2. 새로운 기록 저장
+  - `const nextHistoryItem = getResult(nextHand, nextOtherHand);`
+
+3. 새로운 값 만들기
+  - `setGameHistory([...gameHistory, nextHistoryItem]);`
+
+4. 배열 표현
+  - `<p>승부기록: {gameHistory.join(',')}</p>`
 
 
