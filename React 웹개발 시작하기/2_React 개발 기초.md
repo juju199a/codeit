@@ -713,4 +713,182 @@ const handleClearClick = () => {
 4. 배열 표현
   - `<p>승부기록: {gameHistory.join(',')}</p>`
 
+## 27. 가위바위보 - 배점
+1. `e.target.value`
+  - 이벤트 핸들러에서 input의 value 속성을 참조하려면 `e.target.value`와 같이 가져올 수 있는데요.
 
+2. Number 생성자를 써서 숫자형으로 변환해 줘야 합니다.
+  - `const num = Number(e.target.value)`
+
+3. 1~9 사이만 받아 드리는 방법
+  - `let num = Number(e.target.value);`
+```js
+const handleBetChange = (e) => {
+  let num = Number(e.target.value);
+  if (num > 9) num %= 10;
+  if (num < 1) num = 1;
+  num = Math.floor(num);
+  setBet(num);
+}
+```
+
+## 28. State 정리하기
+1. State
+  - `상태가 바뀔 때마다 화면을 새롭게 그려내는 방식`
+
+2. useState라는 함수를 활용
+  - `import { useState} from 'react';`
+
+3. Destructing 문법으로 작성
+  - `const [num, setNum] = useState(1);`
+  - 첫 번째 요소가 바로 state
+  - 두 번째 요소가 이 state를 바꾸는 setter 함수
+
+4. 이벤트 핸들러를 등록
+  - 그래서 아래 코드처럼 setter 함수를 활용해서 이벤트 핸들러를 등록해 두면,
+  - `이벤트가 발생할 때마다` 상태가 변하면서 화면이 새로 그려지는 것이죠!
+
+5. 참조형 State
+  - Spread 문법(...)
+  - `setGameHistory([...gameHistory, nextNum]);`
+
+## 29. State 퀴즈
+1. state를 만들때 활용하는 함수
+  - 리액트에서 state를 만들기 위해서는 useState라는 함수를 활용해야 합니다.
+
+2. state에 대한 설명으로 올바르지 않은 것은?
+  - let 키워드로 state를 선언하면 직접 state값을 변경할 수 있다. (X)
+  - 반드시 setter 함수로 변경해야 한다.
+
+3. addMember 함수는 state가 제대로 변경되지 않는 오류가 있다. 이를 해결하라
+```
+const addMember = (name) => {
+  setMembers([name, ...members]);
+};
+```
+  - 참조형 state를 활용할 때는 반드시 새로운 참조형 값을 만들어 state를 변경해야 하는데요.
+  - 가장 간단한 방법은 `Spread 문법(...)`을 활용하는 겁니다!
+
+## 30. 컴포넌트가 좋은 이유
+1. 리액트 개발은 곧 컴포넌트 개발이다.
+
+2. 웹페이지를 부품으로 나눈다.
+  - 네비게이션 바
+  - 동영상 뷰어
+  - 동영상 설명
+  - 댓글 창
+  - 관련 영상 목록
+
+3. 컴포넌트의 장점
+  - 반복적인 개발이 줄어든다.
+  - 오류를 고치기 쉽다.
+  - 일을 쉽게 나눌 수 있다.
+
+## 31. 컴포넌트 재사용하기
+1. `Board.js`
+  - App.js를 그대로 붙인다.
+  - App() -> F2 -> Board()
+
+2. name과 color 라는 props를 만들어준다.
+  - `function Board({name, color})`
+  - 나 > {name}
+  - color='blue' => color={color}
+
+3. App.js
+  - `<Board name="나" color="blue">`
+  - `<Board name="상대" color="blue">`
+
+4. `스테이트 리프팅`
+  - `하나의 이벤트`로 `두 컴포넌트`를 다뤄야 하니까,
+  - 각 컴포넌트의 데이터도 한 곳에서 관리하는 것이 좋을 것 같죠?
+  - Board 컴포넌트의 State들을 부모 컴포넌트인 App 컴포넌트로 가져와야 합니다.
+  - 상대 주시위도 만들어 줘야 한다.
+  - 참고로, 자식 컴포넌트의 State를 부모 컴포넌트로 올려 주는 것을 `State 리프팅`이라고 하는데요.
+
+5. `이벤트 핸들러도 가지고 온다.`
+  - handleRollClick
+  - handleClearClick
+  - nextOtherNum으로 수정
+
+6. Board 컴포넌트에 State로 전달
+  - State들을 각 Board 컴포넌트에 적절한 프로브로 전달해 주면 마무리가 된다.
+  - `<Board name="나" color="blue" num={num} sum={sum} gameHistory={gameHistory} />`
+
+## 32. 코드 정리하기
+1. 주사위를 던진 기록만 있으면, 총점에나 현재 주사위의 값은 충분히 구할 수 있는 값들입니다.
+  - myHistory / otherHistory
+  - myNum
+
+2. num과 sum 계산
+  - `const num = gameHistory[gameHistory.length - 1] || 1;`
+  - `const sum = gameHistory.reduce((a,b) => a + b, 0);`
+
+## 33. 리액트가 렌더링하는 방식
+1. 리액트의 랜더링
+  - 리액트 컴포넌트는 props와 state를 써서, 데이터마다 다른 화면을 보여 줄 수 있었는데요.
+  - state가 바뀔 때 랜더링 하는 방식을 알아보겠습니다.
+  - 이렇게 여러 요소를 직접 변경하는 것은 번거롭기도 하고, 실수라도 하면, 
+  - 일부만 업데이트 되어서, 버그가 발생하기도 쉽습니다.
+  - 그래서 리액트에서는 쉽고 단순한 방법을 사용한다.
+  - `새로 랜더링 하는 겁니다.`
+
+2. `Virtual DOM (가상 DOM)`
+  - 던지기 버튼을 눌렀을 때, `직접 요소가 변경되는 것이 아니라 State 값`이 변경 되는데요.
+  - 이때 리액트가 App 함수를 실행하면서, 새로운 `State 값`이 적용된 앨리먼트를 리턴하는 겁니다.
+  - `어디가 변경되었는지 신경쓸 필요도 없이` 통채로 다시 랜더링 하는 것이죠.
+  - 이렇게 랜더링 하면 문제가 한가지 있습니다.
+  - `던지기 버튼`과 같이 아무 변화 없는 요소들도 매번 다시 랜더링 된다는 것인데요.
+  - 이러한 문제점을 해결하기 위해서, 리액트에서는 `Virtual DOM`이라는 것을 활용합니다.
+
+3. DOM 트리
+  - window(전쳑객체) > document > html > head와 body
+  - 기본적으로 html 요소들은 `DOM 트리`라는 자료 구조로 되어 있는데요.
+  - 마찬가지로 `리액트 내부`에서는 `DOM 트리`를 본 따서 만든 `Virtual DOM`이라는 자료구조를 사용합니다.
+  - 그래서 앨리먼트를 새로 랜더링할 때, 리액트는 그 모습을 `실제 DOM 트리`에 바로 반영하는 것이 아니라,
+  - 일단은 `Virtual DOM`에다가 적용합니다.
+  - #root > App > div > button, p, p
+  - App 컴포넌트 아래의 트리를 모두 지우고, `App 컴포넌트`를 새로 랜더링 하는 것입니다.
+  - 중요한 것은 실제 `DOM 트리`에 바로 반영하는 것이 아니다.
+  - 화면을 바꿀 준비만 하고, 실제로는 반영하지 않았다.
+  - 리액트가 State 변경 전의 `Virtual DOM`과 State 변경 후의 `Virtual DOM`을 비교하는 것입니다.
+  - 바뀐 부분만 찾아낸 다음에, 각각에 해당하는 `DOM 노드`를 변경하는 것이지요.
+
+4. 장점
+  - 개발자가 `DOM 노드`를 직접 신경쓸 필요가 없다.
+  - 단순하고 깔끔한 코드를 작성할 수 있다.
+  - 리액트 컴포넌트를 작성할 때는, 무슨 데이터를 어떻게 보여줄 것인지만을 신경쓰면 되는 것입니다.
+  - 두번째는 변경 사항들을 리액트가 적당히 모아서 처리할 수 있다.
+  - 리액트는 `Virtual DOM`이 바뀔 때마다 브라우저에 바로 전달하지 않고, 
+  - 변경사항을 모아 뒀다가 일감을 적당히 나눠서 `브라우저`에 전달합니다.
+  - 변경사항들을 효육적으로 처리할 수 있다.
+
+## 34. 인라인 스타일
+1. `style 속성`
+  - <button style>
+  - html 스타일 속성처럼 리액트에서도 인라인 스타일은 `style 속성`을 지정해 주면 됩니다.
+  - 그런데, 리액트에서는 html에서와는 다르게 문자열이 아니라 `객체`로 스타일 속성값을 지정해 줘야 하는데요.
+  - 객체 형태의 스타일 변수로 만들어 봤습니다.
+```
+const style = {
+  속성: '값',
+  background-color:'pink'; (X)
+  -> backgroundColor: 'pink'; (O)
+};
+```
+  - style = {style}
+
+
+2. 인라인 스타일
+  - 변수에 담지 않고, 바로 객체 형태의 값을 속성값으로 작성할 수 있다.
+  - `하지만 추천안함`
+```
+<button style={{backgroundColor:'yellow'}}>
+```
+
+3. `style 만들기 (스프레드 문법)`
+  - baseButtonStyle
+  - blueButtonStyle = {...baseButtonStyle,}
+  - redButtonStyle = {...baseButtonStyle,}
+
+4. color 받기
+  - `const style = color === 'red' ? redButtonStyle : blueButtonStyle;`
