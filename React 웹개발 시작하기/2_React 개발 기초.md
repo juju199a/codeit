@@ -864,7 +864,7 @@ const addMember = (name) => {
 
 ## 34. 인라인 스타일
 1. `style 속성`
-  - <button style>
+  - <button style=''>
   - html 스타일 속성처럼 리액트에서도 인라인 스타일은 `style 속성`을 지정해 주면 됩니다.
   - 그런데, 리액트에서는 html에서와는 다르게 문자열이 아니라 `객체`로 스타일 속성값을 지정해 줘야 하는데요.
   - 객체 형태의 스타일 변수로 만들어 봤습니다.
@@ -875,8 +875,7 @@ const style = {
   -> backgroundColor: 'pink'; (O)
 };
 ```
-  - style = {style}
-
+  - `style = {style}`
 
 2. 인라인 스타일
   - 변수에 담지 않고, 바로 객체 형태의 값을 속성값으로 작성할 수 있다.
@@ -892,3 +891,124 @@ const style = {
 
 4. color 받기
   - `const style = color === 'red' ? redButtonStyle : blueButtonStyle;`
+
+## 35. 가위바위보- HandButton 인라인 스타일
+1. style prop으로 객체를 넣어주면 된다.
+  - 인라인 스타일을 지정하려면, `style prop`으로 객체를 넣어주면 되는데요.
+  - 프로퍼티 이름을 CSS 속성명으로, 프로퍼티 값을 CSS 속성값으로 하면 된다.
+  - 카멜 케이스로 쓴다.
+  - `이미지 주소는 import 구문을 통해서` 가져온 값을 템플릿 문자열로 넣어주면 된다.
+  - `import backgroundImg from './assets/purple.svg';`
+  - backgroundImage: `url('${backgroundImg}')`,
+
+## 36. CSS 클래스네임
+1. CSS 임포트
+  - CSS 클래스를 사용해서, 컴포넌트에 디자인을 입히는 방법을 살펴 보겠습니다.
+  - 우리가 생성한 프로젝트에는 유용한 기능하나가 있는데요.
+  - `자바스크립트 파일`에서 `CSS 파일을 임포트` 하는 기능입니다.
+
+2. index.css
+  - index.css 만들기
+```
+body {
+  background-color: #191f2c;
+  color:#fff;
+}
+```
+
+3. 자바스크립트에서 부르기
+  - index.js 에서 
+  - `import './index.css';`
+  - 임포트 다음에 바로 파일 경로를 붙여준다.
+
+4. Button.css
+  - ./Button.css를 만들고,
+  - CSS 코드를 작성한다.
+  - .Button: 기본적인 버튼 스타일은 버튼 클래스로 작성하고, 
+  - .Button.blue : 색깔 부분은 블루와 레드로 작성한다.
+  - .Button.red
+
+5. CSS 임포트
+  - `import './Button.css';`
+
+6. **클래스 네임값**
+  - 컴포넌트 함수 내부에서는 `컬러 프룹`에 따라서 
+  - `스타일 객체값`이 바뀌는 것이 아니라, `클래스네임값`이 달라지게 해야 한다.
+  - const style = color === 'red' ? redButtonStyle : blueButtonStyle;
+  - `const classNames = 'Button ${color}';` 으로 바꿔줘야 한다.
+  - 클래스 네임을 추가할 때, `빈공백`이 필요하다. 
+  - 공백이 없으면 하나의 클래스로 인식한다.
+  - <button에도 `스타일 속성`이 아니라 `클래스 네임 속성`의 classNames를 지정해 줘야 한다.
+  - style={style} => `className={classNames}`
+
+7. color의 기본값 
+  - color='blue'
+
+8. 꿀팁
+  - className을 사용할 때 유용한 꿀팁
+  - 스타일을 보면, CSS 스타일 속성 중에는 여백을 주는 margin과 같은 요소 내부 보다는 외부에 영향을 주는 속성들이 있습니다.
+  - 이런 속성은 컴포넌트 내부 보다는 `외부에서 정리`를 하는 것이 좋은데요.
+
+9. Button({className = ''}) 추가
+  - `const classNames = 'Button ${color} ${className}';`
+  - 이렇게 하면 컴포넌트 태그를 작성할 때, 전달한 className이라는 프룹이 
+  - 마치 `html 태그의 className을 사용`하는 듯한 결과로 이어진다.
+
+10. App.css를 만들고,
+  - `button의 margin 지정`
+```css
+.App .App-button {
+  margin: 6px;
+}
+```
+
+11. App.js에서 CSS파일 불러온다.
+  - import './App.css';
+  - <div className="App">
+  - `className이라는 프룹`을 통해서, Button에 `App-button` 클래스가 생기고, 
+  - 버튼간의 여백이 잘 생겨난다.
+  - 한가지 의문이 생긴다.
+  - Button 스타일은 Button 컴포넌트에서 다루는 것이 좋을 것 같은데, 왜 굳이 `부모 컴포넌트`에서 지정해 주는 걸까요?
+  - 자식 요소들 간에 여백을 조정할 수 있으니까, 훨씬 더 직관적으로 스타일을 다룰 수가 있게 되는 것입니다.
+  - 버튼의 내부적인 스타일은 당연히 버튼 내부에서 다루는 것이 훨씬 더 좋겠지만,
+  - 마진과 같이 `요소의 외부적으로 영향을 끼칠만한 스타일 속성`은 요소 주변에 어떤 요소들이 더 배치될지
+  - 훨씬 더 잘 아는 App 컴포넌트에서 다루는 것이 더 좋다는 의미인 것이죠.
+  - className 속성과 props를 잘 활용하면, 컴포넌트를 재사용하고, 디자인을 입히는데도, 도움이 된다는 점
+
+## 37. 가위바위보 - HandButton 클래스네임 적용
+1. `HandButton.css 생성`
+
+2. `HandIcon에 className props 보내기`
+
+## 38. 디자인 적용하는 방법과 팁
+1. 이미지 불러오기
+  - `<img src={diceImg} alt="주사위 이미지">;`
+
+2. 인라인 스타일
+ - 리액트에서 `인라인 스타일`은 문자열이 아닌 객체형으로 사용합니다.
+ - 프로퍼티 이름은 CSS속성 이름으로, 프로퍼티 값은 CSS 속성 값으로 쓰는데요,
+ - 이때 프로퍼티 이름은 아래의 boarderRadius 처럼 대시 기호 없이 카멜케이스로 써야 한다는 점도 꼭 기억해 두세요.
+
+3. CSS 파일 불러오기
+  - `import 구문으로 파일을 불러올 수 있는데요, 이때 from 키워드 없이 쓰면 됩니다.`
+  - `import './Dice.css';`
+
+4. 클래스네임 사용하기
+  - CSS 파일에 정의된 클래스명을 className prop에 문자열로 넣어주면 됩니다.
+
+5. `classnames` 라이브러리
+
+## 39. 디자인 적용 퀴즈
+1. 컴포넌트에 이미지 파일을 제대로 불러온 코드
+  - `import logLight from './assets/logo-light.png';`
+  - `import logDart from './assets/logo-dark.png';`
+  - const logoUrl = mode === light ? logoLight : logoDark;
+  - return <img src={logoUrl} alt="logo" />
+
+2. 인라인 스타일 방식
+  - `리액트에서 인라인 스타일은 문자열이 아닌 객체형으로 사용해야 합니다.`
+
+3. CSS파일 불러오기
+  - 리액트에서는 import 구문으로 CSS파일을 불러올 수 있는데요. 이때 from 키워드는 생략할 수 있습니다.
+  - props에서 `className prop을 전달`받을 수 있도록 하면 재사용성이 훨씬 더 높아진다는 점
+  
